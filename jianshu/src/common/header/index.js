@@ -1,8 +1,34 @@
 import React from 'react';
-import { SeachWrapper, HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style'
+import {SeacherInfoList,SeacherInfoItem,SeacherInfoSwith,SeacherInfoTitle, SeacherInfo,SeachWrapper, HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style'
 import { CSSTransition } from 'react-transition-group';
 import {connect} from 'react-redux';
+import {actionCreators} from './store';
 
+const getListArea=(show)=>{
+    if(show){
+        return (                        <SeacherInfo>
+            <SeacherInfoTitle>
+                热门搜索
+                <SeacherInfoSwith>
+                    换一换
+                </SeacherInfoSwith>
+            </SeacherInfoTitle>
+            <SeacherInfoList>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+                <SeacherInfoItem>教育</SeacherInfoItem>
+            </SeacherInfoList>
+        </SeacherInfo>);
+    }else{
+
+    }
+}
 const Header=(props)=>{
     return(
             <HeaderWrapper>
@@ -27,6 +53,7 @@ const Header=(props)=>{
                             ></NavSearch>
                         </CSSTransition>
                         <i className={props.focused ? 'focused iconfont' : 'iconfont'}>&#xe631;</i>
+                    {getListArea(props.focused)}
                     </SeachWrapper>
                 </Nav>
                 <Addition>
@@ -49,22 +76,17 @@ const Header=(props)=>{
 
 const mapStateToProps=(state)=>{
     return{
-        focused : state.focused
+        focused : state.getIn(['header','focused'])
+        // state.get('header').get('focused')
     }
 }
 const mapDispathToProps=(dispatch)=>{
     return{
     handelinputfocus() {
-        const action={
-            type:'search_focus'
-        };
-        dispatch(action);
+        dispatch(actionCreators.searchFocus());
     },
     handelinputblur() {
-        const action={
-            type:'search_blur'
-        };
-        dispatch(action);
+        dispatch(actionCreators.searchBlur());
     }
     }
 }
