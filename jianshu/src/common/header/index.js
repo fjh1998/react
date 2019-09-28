@@ -1,36 +1,41 @@
-import React from 'react';
-import {SeacherInfoList,SeacherInfoItem,SeacherInfoSwith,SeacherInfoTitle, SeacherInfo,SeachWrapper, HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style'
+import React, { Component } from 'react';
+import { SeacherInfoList, SeacherInfoItem, SeacherInfoSwith, SeacherInfoTitle, SeacherInfo, SeachWrapper, HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style'
 import { CSSTransition } from 'react-transition-group';
-import {connect} from 'react-redux';
-import {actionCreators} from './store';
-
-const getListArea=(show)=>{
-    if(show){
-        return (                        <SeacherInfo>
-            <SeacherInfoTitle>
-                热门搜索
-                <SeacherInfoSwith>
-                    换一换
-                </SeacherInfoSwith>
-            </SeacherInfoTitle>
-            <SeacherInfoList>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-                <SeacherInfoItem>教育</SeacherInfoItem>
-            </SeacherInfoList>
-        </SeacherInfo>);
-    }else{
-
+import { connect } from 'react-redux';
+import { actionCreators } from './store';
+import {toJS} from 'immutable';
+ 
+class Header extends Component {
+    getListArea = ()=> {
+        const { focused,list,page,mousein,mouseIn,mouseLeave}=this.props;
+        const pageList=[];
+        const newList=list.toJS();
+        for(let i=((page-1)*10);i<page*10;i++){
+            pageList.push(
+                <SeacherInfoItem key={newList[i]}>{newList[i]}</SeacherInfoItem>
+            )
+        }
+        if (focused || mousein) {
+            return (
+            <SeacherInfo onMouseEnter={mouseIn}
+            onMouseLeave={mouseLeave}>
+                <SeacherInfoTitle>
+                    热门搜索
+                    <SeacherInfoSwith>
+                        换一换
+                    </SeacherInfoSwith>
+                </SeacherInfoTitle>
+                <SeacherInfoList>
+                    {pageList}
+                </SeacherInfoList>
+            </SeacherInfo>);
+        } else {
+    
+        }
     }
-}
-const Header=(props)=>{
-    return(
+    render() {
+        const { focused,handelinputblur,handelinputfocus }=this.props;
+        return (
             <HeaderWrapper>
                 <Logo />
                 <Nav>
@@ -42,18 +47,18 @@ const Header=(props)=>{
                     </NavItem>
                     <SeachWrapper>
                         <CSSTransition
-                            in={props.focused}
+                            in={focused}
                             timeout={200}
                             classNames="slide"
                         >
                             <NavSearch
-                                onFocus={props.handelinputfocus}
-                                onBlur={props.handelinputblur}
-                                className={props.focused ? 'focused' : ''}
+                                onFocus={handelinputfocus}
+                                onBlur={handelinputblur}
+                                className={focused ? 'focused' : ''}
                             ></NavSearch>
                         </CSSTransition>
-                        <i className={props.focused ? 'focused iconfont' : 'iconfont'}>&#xe631;</i>
-                    {getListArea(props.focused)}
+                        <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe631;</i>
+                        {this.getListArea()}
                     </SeachWrapper>
                 </Nav>
                 <Addition>
@@ -71,23 +76,34 @@ const Header=(props)=>{
                     <TomatoButton as="a" href="/">Link with Tomato Button styles</TomatoButton>
                 </div> */}
             </HeaderWrapper>
-    )
+        )
+    }
 }
 
-const mapStateToProps=(state)=>{
-    return{
-        focused : state.getIn(['header','focused'])
+const mapStateToProps = (state) => {
+    return {
+        focused: state.getIn(['header', 'focused']),
+        list:state.getIn(['header','list']),
+        page:state.getIn(['header','page']),
+        mousein:state.getIn(['header','mousein'])
         // state.get('header').get('focused')
     }
 }
-const mapDispathToProps=(dispatch)=>{
-    return{
-    handelinputfocus() {
-        dispatch(actionCreators.searchFocus());
-    },
-    handelinputblur() {
-        dispatch(actionCreators.searchBlur());
-    }
+const mapDispathToProps = (dispatch) => {
+    return {
+        handelinputfocus() {
+            dispatch(actionCreators.getList());
+            dispatch(actionCreators.searchFocus());
+        },
+        handelinputblur() {
+            dispatch(actionCreators.searchBlur());
+        },
+        mouseIn(){
+               dispatch(actionCreators.mouseenter());
+        },
+        mouseLeave(){
+               dispatch(actionCreators.mouseLeave());
+        }
     }
 }
-export default connect(mapStateToProps,mapDispathToProps)(Header);
+export default connect(mapStateToProps, mapDispathToProps)(Header);

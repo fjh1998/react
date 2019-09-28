@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import logo from '../../statics/logo.png';
-import React from 'react';
 
 export const HeaderWrapper = styled.div `
     height:58px;
@@ -8,8 +7,7 @@ export const HeaderWrapper = styled.div `
 `;
 export const Logo = styled.a.attrs({
     href: '/'
-})
-`
+})`
     margin-left:20px;
     position:absolute;
     top:0;
@@ -129,6 +127,7 @@ export const SeacherInfoTitle=styled.div`
     font-size:14px;
     line-height:20px;
     color:#969696;
+    padding-bottom:6px;
 `
 export const SeacherInfoSwith=styled.span`
     float:right;
@@ -153,32 +152,32 @@ export const SeacherInfoList=styled.span`
 
 
 
-export const Link = ({ className, children }) => (
-    <a className={className}>
-      {children}
-    </a>
-  );
- export const StyledLink = styled(Link)`
-    color: palevioletred;
-    font-weight: bold;
-  `;
+// export const Link = ({ className, children }) => (
+//     <a className={className}>
+//       {children}
+//     </a>
+//   );
+//  export const StyledLink = styled(Link)`
+//     color: palevioletred;
+//     font-weight: bold;
+//   `;
 
- export const Propinput = styled.input`
-    color: ${props=>props.inputColor||'palevioletred'
-    };
-  `;
-  export const Buttona = styled.button`
-  display: inline-block;
-  color: palevioletred;
-  font-size: 1em;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-  display: block;
-`;
+//  export const Propinput = styled.input`
+//     color: ${props=>props.inputColor||'palevioletred'
+//     };
+//   `;
+//   export const Buttona = styled.button`
+//   display: inline-block;
+//   color: palevioletred;
+//   font-size: 1em;
+//   margin: 1em;
+//   padding: 0.25em 1em;
+//   border: 2px solid palevioletred;
+//   border-radius: 3px;
+//   display: block;
+// `;
 
-export const TomatoButton = styled(Buttona)`
-  color: tomato;
-  border-color: tomato;
-`;
+// export const TomatoButton = styled(Buttona)`
+//   color: tomato;
+//   border-color: tomato;
+// `;
