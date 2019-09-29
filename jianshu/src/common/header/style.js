@@ -132,6 +132,7 @@ export const SeacherInfoTitle=styled.div`
 export const SeacherInfoSwith=styled.span`
     float:right;
     font-size:13px;
+    cursor: pointer;
     .spin{
         display:block;
         float:left;
