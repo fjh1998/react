@@ -15,11 +15,18 @@ export default (state = defaultState, action) => {
                 case constants.SEARCH_BLUR:
                         return state.set('focused', false);
                 case constants.CHANGE_LIST:
-                                return state.set('list', action.data).set('totalPage', action.totalPage);
+                        //merge可一次修改多个数据，只调用一次性能比连续set高
+                        //return state.set('list', action.data).set('totalPage', action.totalPage);
+                        return state.merge({
+                                list:action.data,
+                                totalPage:action.totalPage
+                        })
                 case constants.MOUSE_ENTER:
                         return state.set('mousein',true);              
                 case constants.MOUSE_LEAVE:
                         return state.set('mousein',false);              
+                case constants.CHANGE_PAGE:
+                        return state.set('page',action.page);              
                 default:
                         return state;
         }

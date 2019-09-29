@@ -3,25 +3,27 @@ import { SeacherInfoList, SeacherInfoItem, SeacherInfoSwith, SeacherInfoTitle, S
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
-import {toJS} from 'immutable';
  
 class Header extends Component {
     getListArea = ()=> {
-        const { focused,list,page,mousein,mouseIn,mouseLeave}=this.props;
+        const { handelChangePage,totalPage,focused,list,page,mousein,mouseIn,mouseLeave}=this.props;
         const pageList=[];
         const newList=list.toJS();
+        if(newList.length){
         for(let i=((page-1)*10);i<page*10;i++){
             pageList.push(
                 <SeacherInfoItem key={newList[i]}>{newList[i]}</SeacherInfoItem>
             )
         }
+    }
         if (focused || mousein) {
             return (
             <SeacherInfo onMouseEnter={mouseIn}
             onMouseLeave={mouseLeave}>
                 <SeacherInfoTitle>
                     热门搜索
-                    <SeacherInfoSwith>
+                    <SeacherInfoSwith onClick={()=>handelChangePage(page,totalPage,this.spinIcon)}>
+                        <i ref={(icon)=>{this.spinIcon=icon}} className="iconfont spin">&#xe606;</i>
                         换一换
                     </SeacherInfoSwith>
                 </SeacherInfoTitle>
@@ -57,7 +59,7 @@ class Header extends Component {
                                 className={focused ? 'focused' : ''}
                             ></NavSearch>
                         </CSSTransition>
-                        <i className={focused ? 'focused iconfont' : 'iconfont'}>&#xe631;</i>
+                        <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe631;</i>
                         {this.getListArea()}
                     </SeachWrapper>
                 </Nav>
@@ -85,7 +87,8 @@ const mapStateToProps = (state) => {
         focused: state.getIn(['header', 'focused']),
         list:state.getIn(['header','list']),
         page:state.getIn(['header','page']),
-        mousein:state.getIn(['header','mousein'])
+        mousein:state.getIn(['header','mousein']),
+        totalPage:state.getIn(['header','totalPage'])
         // state.get('header').get('focused')
     }
 }
@@ -103,6 +106,20 @@ const mapDispathToProps = (dispatch) => {
         },
         mouseLeave(){
                dispatch(actionCreators.mouseLeave());
+        },
+        handelChangePage(page,totalPage,spin){
+            let originAngle=spin.style.transform.replace(/[^0-9]/ig,'');
+            if(originAngle){
+                originAngle=parseInt(originAngle,10);
+            }else{
+                originAngle=0;
+            }
+            spin.style.transform='rotate('+(originAngle+360)+'deg)';
+               if(page<totalPage){
+                   dispatch(actionCreators.changePage(page+1));
+               }else{
+                dispatch(actionCreators.changePage(1));
+               }
         }
     }
 }
