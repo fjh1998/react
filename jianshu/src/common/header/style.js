@@ -120,6 +120,7 @@ export const SeacherInfo=styled.div`
     width:240px;
     padding: 0 20px;
     box-shadow:0 0 8px rgba(0,0,0,0.2);
+    background:white;
 `
 export const SeacherInfoTitle=styled.div`
     margin-top:20px;
@@ -155,10 +156,12 @@ export const SeacherInfoItem=styled.a`
     margin-right:10px;
     margin-bottom:10px;
     color:#787878;
-`
+    cursor:pointer;
+`;
 export const SeacherInfoList=styled.span`
     overflow:hidden;
 `
+
 
 
 
