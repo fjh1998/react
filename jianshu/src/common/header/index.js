@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { SeacherInfoList, SeacherInfoItem, SeacherInfoSwith, SeacherInfoTitle, SeacherInfo, SeachWrapper, HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button } from './style'
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
+import {Link} from 'react-router-dom';
  
-class Header extends Component {
+class Header extends PureComponent {
     getListArea = ()=> {
         const { handelChangePage,totalPage,focused,list,page,mousein,mouseIn,mouseLeave}=this.props;
         const pageList=[];
@@ -39,7 +40,9 @@ class Header extends Component {
         const { focused,handelinputblur,handelinputfocus,list}=this.props;
         return (
             <HeaderWrapper>
+                <Link to='/'>
                 <Logo />
+                </Link>
                 <Nav>
                     <NavItem className="left active">首页</NavItem>
                     <NavItem className="left">下载App</NavItem>

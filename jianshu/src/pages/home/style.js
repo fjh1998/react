@@ -88,7 +88,7 @@ export const RecommendItem=styled.div`
 export const WriterWrapper=styled.div`
     width:278px;
     margin:30px 0;
-    border:1px solid #ccc;
+    /* border:1px solid #ccc; */
     height:400px;
     overflow:hidden;
 `;
@@ -99,6 +99,7 @@ export const WriterTitle=styled.div`
     line-height:20px;
     color:#969696;
     padding-bottom:6px;
+    overflow:hidden;
 `
 export const WriterInfoSwith=styled.span`
     float:right;
@@ -109,12 +110,56 @@ export const WriterInfoSwith=styled.span`
         float:left;
         font-size:12px;
         margin-right:2px;
+        transform: all .2s ease-in;
+        transform:rotate(0deg);
         transform-origin:center center;
     }
 `
 export const WriterItem=styled.div`
+    display:block;
     width:280px;
-    height:30px;
+    height:48px;
     font-size:14px;
-    background:#cdcdcd;
+    margin-top:10px;
+    .writer-img{
+        float:left;
+        width:48px;
+        height:48px;
+        border-radius:50%;
+        margin-right:10px;
+    }
+    .writer-name{
+        font-size:14px;
+        color:#2f2f2f;
+        padding-top:5px;
+        display:block;
+        margin-right:60px;
+    }
+    .writer-introduction{
+        font-size:12px;
+        color:#969696;
+        margin-top:2px;
+    }
 `;
+export const LoadMore=styled.div`
+    width:100%;
+    height:40px;
+    line-height:40px;
+    cursor:pointer;
+    border-radius:20px;
+    background:#a5a5a5;
+    text-align:center;
+    margin:30px 0;
+    color:#969696;
+`
+export const BackTop=styled.div`
+    position:fixed;
+    right:100px;
+    bottom:100px;
+    width:60px;
+    height:60px;
+    line-height:60px;
+    text-align:center;
+    border: 1px solid #ccc;
+    cursor:pointer;
+`

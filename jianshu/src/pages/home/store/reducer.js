@@ -1,47 +1,43 @@
 import { fromJS } from 'immutable';
-import img1 from '../../../statics/img/teacher.png';
-import img2 from '../../../statics/img/student.png';
+import * as actionTypes from './common';
 
 const defaultState = fromJS({
-    topicList: [{
-        id: 1,
-        title: '社会热点',
-        imgUrl: img1
-    }, {
-        id: 2,
-        title: '最新科技',
-        imgUrl: img2
-    }],
-    articleList: [
-        {
-            id: 1,
-            title: '今日最佳',
-            desc: '想做一个精致的女孩，一直在往这个方向努力，比如定期扔东西，比如买衣服鞋子饰品只是因为喜欢而不是因为价格 衣服鞋子可以不是新款但是一定要整洁 衣服.',
-            imgUrl: '//upload-images.jianshu.io/upload_images/644910-288da7c6572d91fc.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240'
-        },
-        {
-            id: 2,
-            title: '今日最佳',
-            desc: '想做一个精致的女孩，一直在往这个方向努力，比如定期扔东西，比如买衣服鞋子饰品只是因为喜欢而不是因为价格 衣服鞋子可以不是新款但是一定要整洁 衣服.',
-            imgUrl: '//upload-images.jianshu.io/upload_images/644910-288da7c6572d91fc.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240'
-        },
-        {
-            id: 3,
-            title: '今日最佳',
-            desc: '想做一个精致的女孩，一直在往这个方向努力，比如定期扔东西，比如买衣服鞋子饰品只是因为喜欢而不是因为价格 衣服鞋子可以不是新款但是一定要整洁 衣服.',
-            imgUrl: '//upload-images.jianshu.io/upload_images/644910-288da7c6572d91fc.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240'
-        }
-    ],
-    recommendList:[
-        {
-            id: 1,
-            imgUrl: 'http://cdn2.jianshu.io/assets/web/banner-s-club-aa8bdf19f8cf729a759da42e4a96f366.png'
-        }, {
-            id: 2,
-            imgUrl: 'http://cdn2.jianshu.io/assets/web/banner-s-club-aa8bdf19f8cf729a759da42e4a96f366.png'
-        }
-    ]
-});
+    topicList: [],
+    articleList: [],
+    recommendList: [],
+    writerList: [],
+    writerListPage: {
+        page: 1,
+        totalePage: 0
+    },
+    articlePage:1,
+    showScroll:false
+}); 
+
 export default (state = defaultState, action) => {
-    return state;
+    switch (action.type) {
+        case actionTypes.CHANGE_HOME_DATA:
+            return changeHomeData(state,action);
+        case actionTypes.ADD_HOME_LIST:
+            return addMoreList(state,action);
+         case actionTypes.TOP_TOGGLE_SHOE:{
+            return state.set('showScroll',action.show);
+        }
+        default:
+            return state;
+    }
+};
+const changeHomeData=(state,action)=>{
+    return state.merge({
+        topicList:fromJS(action.topicList),
+        articleList:fromJS(action.articleList),
+         recommendList:fromJS(action.recommendList),
+         writerList:fromJS(action.writerList)
+     });
+};
+const addMoreList=(state,action)=>{
+    return state.merge({
+        'articleList':state.get('articleList').concat(fromJS(action.list)),
+        articlePage:action.nextpage                
+    })
 };

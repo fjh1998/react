@@ -1,0 +1,24 @@
+{
+    "success": true,
+    "data": {
+        "articleList": [{
+                "id": 4,
+                "title": "今日最佳",
+                "desc": "想做一个精致的女孩，一直在往这个方向努力，比如定期扔东西，比如买衣服鞋子饰品只是因为喜欢而不是因为价格 衣服鞋子可以不是新款但是一定要整洁 衣服.",
+                "imgUrl": "//upload-images.jianshu.io/upload_images/644910-288da7c6572d91fc.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240"
+            },
+            {
+                "id": 5,
+                "title": "今日最佳",
+                "desc": "想做一个精致的女孩，一直在往这个方向努力，比如定期扔东西，比如买衣服鞋子饰品只是因为喜欢而不是因为价格 衣服鞋子可以不是新款但是一定要整洁 衣服.",
+                "imgUrl": "//upload-images.jianshu.io/upload_images/644910-288da7c6572d91fc.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240"
+            },
+            {
+                "id": 6,
+                "title": "今日最佳",
+                "desc": "想做一个精致的女孩，一直在往这个方向努力，比如定期扔东西，比如买衣服鞋子饰品只是因为喜欢而不是因为价格 衣服鞋子可以不是新款但是一定要整洁 衣服.",
+                "imgUrl": "//upload-images.jianshu.io/upload_images/644910-288da7c6572d91fc.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240"
+            }
+        ]
+    }
+}
