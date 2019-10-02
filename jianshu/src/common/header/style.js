@@ -4,6 +4,7 @@ import logo from '../../statics/logo.png';
 export const HeaderWrapper = styled.div `
     height:58px;
     border-bottom:1px solid #f0f0f0;
+    z-index:1;
 `;
 export const Logo = styled.div`
     margin-left:20px;
@@ -36,6 +37,9 @@ export const NavItem = styled.div `
     &.right{
         color:#969696;
         float:right;
+    }
+    &.logout{
+        cursor:pointer;
     }
 `
 export const NavSearch = styled.input.attrs({placeholder:'搜索'})`
@@ -97,6 +101,7 @@ export const Button=styled.div`
 export const SeachWrapper=styled.div`
     position:relative;
     float:left;
+    z-index:1;
     .zoom{
         position:absolute;
         right:5px;

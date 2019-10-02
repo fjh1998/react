@@ -3,50 +3,57 @@ import { SeacherInfoList, SeacherInfoItem, SeacherInfoSwith, SeacherInfoTitle, S
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
-import {Link} from 'react-router-dom';
- 
+import { Link } from 'react-router-dom';
+import { actionCreators as LoginActionCreators } from '../../pages/login/store/index'
+
 class Header extends PureComponent {
-    getListArea = ()=> {
-        const { handelChangePage,totalPage,focused,list,page,mousein,mouseIn,mouseLeave}=this.props;
-        const pageList=[];
-        const newList=list.toJS();
-        if(newList.length){
-        for(let i=((page-1)*10);i<page*10;i++){
-            pageList.push(
-                <SeacherInfoItem key={newList[i]}>{newList[i]}</SeacherInfoItem>
-            )
+    getListArea = () => {
+        const { handelChangePage, totalPage, focused, list, page, mousein, mouseIn, mouseLeave } = this.props;
+        const pageList = [];
+        const newList = list.toJS();
+        if (newList.length) {
+            for (let i = ((page - 1) * 10); i < page * 10; i++) {
+                pageList.push(
+                    <SeacherInfoItem key={newList[i]}>{newList[i]}</SeacherInfoItem>
+                )
+            }
         }
-    }
         if (focused || mousein) {
             return (
-            <SeacherInfo onMouseEnter={mouseIn}
-            onMouseLeave={mouseLeave}>
-                <SeacherInfoTitle>
-                    热门搜索
-                    <SeacherInfoSwith onClick={()=>handelChangePage(page,totalPage,this.spinIcon)}>
-                        <i ref={(icon)=>{this.spinIcon=icon}} className="iconfont spin">&#xe606;</i>
-                        换一换
+                <SeacherInfo onMouseEnter={mouseIn}
+                    onMouseLeave={mouseLeave}>
+                    <SeacherInfoTitle>
+                        热门搜索
+                    <SeacherInfoSwith onClick={() => handelChangePage(page, totalPage, this.spinIcon)}>
+                            <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe606;</i>
+                            换一换
                     </SeacherInfoSwith>
-                </SeacherInfoTitle>
-                <SeacherInfoList>
-                    {pageList}
-                </SeacherInfoList>
-            </SeacherInfo>);
+                    </SeacherInfoTitle>
+                    <SeacherInfoList>
+                        {pageList}
+                    </SeacherInfoList>
+                </SeacherInfo>);
         } else {
-    
+
         }
     }
     render() {
-        const { focused,handelinputblur,handelinputfocus,list}=this.props;
+        const { logout, login, focused, handelinputblur, handelinputfocus, list } = this.props;
         return (
             <HeaderWrapper>
                 <Link to='/'>
-                <Logo />
+                    <Logo />
                 </Link>
                 <Nav>
                     <NavItem className="left active">首页</NavItem>
                     <NavItem className="left">下载App</NavItem>
-                    <NavItem className="right">登录</NavItem>
+                    {
+                        login ?
+                            <NavItem onClick={logout} className="right logout">退出</NavItem> :
+                            <Link to="/login">
+                                <NavItem className="right">登录</NavItem>
+                            </Link>
+                    }
                     <NavItem className="right">
                         <i className="iconfont">&#xe636;</i>
                     </NavItem>
@@ -57,7 +64,7 @@ class Header extends PureComponent {
                             classNames="slide"
                         >
                             <NavSearch
-                                onFocus={()=>handelinputfocus(list)}
+                                onFocus={() => handelinputfocus(list)}
                                 onBlur={handelinputblur}
                                 className={focused ? 'focused' : ''}
                             ></NavSearch>
@@ -67,7 +74,9 @@ class Header extends PureComponent {
                     </SeachWrapper>
                 </Nav>
                 <Addition>
+                    <Link to="/write">
                     <Button className="writting"><i className="iconfont">&#xe6a4;</i>写文章</Button>
+                    </Link>
                     <Button className="reg">注册</Button>
                 </Addition>
                 {/* <div>
@@ -88,42 +97,46 @@ class Header extends PureComponent {
 const mapStateToProps = (state) => {
     return {
         focused: state.getIn(['header', 'focused']),
-        list:state.getIn(['header','list']),
-        page:state.getIn(['header','page']),
-        mousein:state.getIn(['header','mousein']),
-        totalPage:state.getIn(['header','totalPage'])
+        list: state.getIn(['header', 'list']),
+        page: state.getIn(['header', 'page']),
+        mousein: state.getIn(['header', 'mousein']),
+        totalPage: state.getIn(['header', 'totalPage']),
+        login: state.getIn(['loginReducer', 'login'])
         // state.get('header').get('focused')
     }
 }
 const mapDispathToProps = (dispatch) => {
     return {
         handelinputfocus(list) {
-            if(list.size===0)
-            dispatch(actionCreators.getList());
+            if (list.size === 0)
+                dispatch(actionCreators.getList());
             dispatch(actionCreators.searchFocus());
         },
         handelinputblur() {
             dispatch(actionCreators.searchBlur());
         },
-        mouseIn(){
-               dispatch(actionCreators.mouseenter());
+        mouseIn() {
+            dispatch(actionCreators.mouseenter());
         },
-        mouseLeave(){
-               dispatch(actionCreators.mouseLeave());
+        mouseLeave() {
+            dispatch(actionCreators.mouseLeave());
         },
-        handelChangePage(page,totalPage,spin){
-            let originAngle=spin.style.transform.replace(/[^0-9]/ig,'');
-            if(originAngle){
-                originAngle=parseInt(originAngle,10);
-            }else{
-                originAngle=0;
+        handelChangePage(page, totalPage, spin) {
+            let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+            if (originAngle) {
+                originAngle = parseInt(originAngle, 10);
+            } else {
+                originAngle = 0;
             }
-            spin.style.transform='rotate('+(originAngle+360)+'deg)';
-               if(page<totalPage){
-                   dispatch(actionCreators.changePage(page+1));
-               }else{
+            spin.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
+            if (page < totalPage) {
+                dispatch(actionCreators.changePage(page + 1));
+            } else {
                 dispatch(actionCreators.changePage(1));
-               }
+            }
+        },
+        logout() {
+            dispatch(LoginActionCreators.logout())
         }
     }
 }
