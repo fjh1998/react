@@ -1,0 +1,49 @@
+[
+        {
+        "title": "基础数据",
+        "icontype": "pie-chart",
+        "key": "basicdata",
+        "children": [{
+                "title": "供应商信息",
+                "linkto": "/customer",
+                "key": "customer"
+            },
+            {
+                "title": "仓库信息",
+                "linkto": "/warehousr",
+                "key": "warehousr"
+            },
+            {
+                "title": "货物信息",
+                "linkto": "/product",
+                "key": "product"
+            }
+
+        ]
+    }, {
+        "title": "人员管理",
+        "icontype": "user",
+        "key": "user",
+        "linkto": "/user"
+    }, {
+        "title": "仓库管理",
+        "icontype": "swap",
+        "key": "warehouse_management",
+        "children": [{
+                "title": "仓库信息",
+                "linkto": "/product_in_record",
+                "key": "product_in_record"
+            },
+            {
+                "title": "商品出库",
+                "linkto": "/product_out_record",
+                "key": "product_out_record"
+            },
+            {
+                "title": "操作记录",
+                "linkto": "/in_out_record",
+                "key": "in_out_record"
+            }
+        ]
+    }
+]
