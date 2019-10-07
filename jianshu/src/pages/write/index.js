@@ -10,7 +10,7 @@ class Write extends PureComponent {
            <div>写文章</div>
         )
         }else{
-            return <Redirect to="/login"></Redirect>
+            return <Redirect to="/"></Redirect>
         }
     }
 

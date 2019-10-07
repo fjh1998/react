@@ -5,12 +5,17 @@ import { Globalstyle_iconfont } from './statics/iconfont/iconfont';
 import store from './store/index';
 import { Provider } from 'react-redux';
 import {BrowserRouter,Route} from 'react-router-dom';
-import Home from './pages/home';
+import Home from './pages/home/loadable';
 import Detail from './pages/detail/loadable';
-import Login from './pages/login';
-import Write from './pages/write';
+import Login from './pages/login/loadable';
+import Write from './pages/write/loadable';
 
-
+//登录界面不显示导航栏
+const isHeader=()=>{
+  if(store.getState().getIn(['loginReducer','login']))
+  return     <Header></Header>;
+  else return null;
+}
 
 function App() {
   return (
@@ -20,10 +25,11 @@ function App() {
         <Globalstyle></Globalstyle>
         <Globalstyle_iconfont></Globalstyle_iconfont>
           <BrowserRouter>
-        <Header></Header>
-          <Route path='/' exact component={Home}></Route>
+          <Route path='/' exact component={Login}></Route>
+          <Route children={isHeader}></Route>
+         {/* <Header></Header> */}
+          <Route path='/home' exact component={Home}></Route>
           <Route path='/detail/:id' exact component={Detail}></Route>
-          <Route path='/login' exact component={Login}></Route>
           <Route path='/write' exact component={Write}></Route>
           </BrowserRouter>
         </div>

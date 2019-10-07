@@ -20,7 +20,7 @@ export default (state = defaultState, action) => {
                         return state.merge({
                                 list:action.data,
                                 totalPage:action.totalPage
-                        })
+                        });
                 case constants.MOUSE_ENTER:
                         return state.set('mousein',true);              
                 case constants.MOUSE_LEAVE:

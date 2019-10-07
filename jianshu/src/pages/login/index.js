@@ -22,7 +22,7 @@ class Login extends PureComponent {
             </LoginWrapper>
         )
         }else{
-            return <Redirect to="/"></Redirect>
+            return <Redirect to="/home"></Redirect>
         }
     }
 
