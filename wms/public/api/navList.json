@@ -10,7 +10,7 @@
             },
             {
                 "title": "仓库信息",
-                "linkto": "/warehousr",
+                "linkto": "/warehouse",
                 "key": "warehousr"
             },
             {
@@ -30,7 +30,7 @@
         "icontype": "swap",
         "key": "warehouse_management",
         "children": [{
-                "title": "仓库信息",
+                "title": "商品入库",
                 "linkto": "/product_in_record",
                 "key": "product_in_record"
             },

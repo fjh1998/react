@@ -1,0 +1,19 @@
+.searchtrans-enter{
+    width:160px;
+    transition: all .2s ease-out;
+}
+.searchtrans-enter-active{
+    width:240px;
+}
+.searchtrans-exit{
+    transition:all .2s ease-out;
+}
+.searchtrans-exit-active{
+    width:160px;
+}
+.search{
+    width: 160px;
+}
+.focuse{
+    width: 240px;
+}

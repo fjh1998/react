@@ -9,7 +9,7 @@ const { Sider } = Layout;
 const { SubMenu } = Menu;
 class Nav extends PureComponent {
 	getNavList(){
-		const {navlist}=this.props;
+		const { navlist }=this.props;
 		const nav_list=[];
 		navlist.map((item)=>{
 			if(item.children){
@@ -24,8 +24,8 @@ class Nav extends PureComponent {
 				  }
 				>
 				  {
-					  item.children.map((itemc)=>{
-						  return <Menu.Item key={itemc.key}><Link to={itemc.linkto}>{itemc.title}</Link></Menu.Item>
+					  item.children.map((item)=>{
+						  return <Menu.Item key={item.key}><Link to={item.linkto}>{item.title}</Link></Menu.Item>
 					  })
 				  }
 				</SubMenu>
@@ -48,8 +48,6 @@ class Nav extends PureComponent {
     render() {
 		const {collapsed,toggleCollapsed}=this.props;
         return (
-            <Layout style={{ minHeight: '100vh' }}>
-              {/*collapsed控制收缩，onCollapse控制点击事件 */}
         <Sider collapsible collapsed={collapsed} onCollapse={toggleCollapsed}>
           <Link to="/">
 		  <div className="logo" />
@@ -77,8 +75,6 @@ class Nav extends PureComponent {
             </SubMenu>
           </Menu>
         </Sider>
-
-      </Layout>
         );
     }
 };
