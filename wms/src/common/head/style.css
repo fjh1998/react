@@ -13,7 +13,20 @@
 }
 .search{
     width: 160px;
+    border-radius: 16px;
 }
-.focuse{
+.foucuse{
     width: 240px;
+}
+.headerwapper{
+    overflow: hidden;
+}
+.welcome{
+    color:#d1cfcf;
+    height: 32px;
+    font-size: 28px;
+    line-height: 10px;
+    float: left;
+    margin:20px 18px 2px 30px;
+    padding-top: 5px;
 }

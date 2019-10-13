@@ -1,0 +1,30 @@
+{
+    "success":true,
+    "data":[
+        {
+            "title":"ID",
+            "dataIndex":"id",
+            "key":"id"
+        },
+        {
+            "title":"名称",
+            "dataIndex":"name",
+            "key":"name"
+        },
+        {
+            "title":"地址",
+            "dataIndex":"address",
+            "key":"address"
+        },
+        {
+            "title":"联系人",
+            "dataIndex":"contact",
+            "key":"contact"
+        },
+        {
+            "title":"手机号",
+            "dataIndex":"phone",
+            "key":"phone"
+        }
+    ]
+}

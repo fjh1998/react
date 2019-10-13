@@ -6,15 +6,20 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import {Globalstyle} from './styl';
 import 'antd/dist/antd.css';
 import {Layout} from 'antd';
-import Nav from './common/nav';
-import User from './pages/user';
-import Customer from './pages/customer';
-import In_Out_Record from './pages/in_out_record';
-import Product_Out_Record from './pages/product_out_record';
-import Product_In_Record from './pages/product_in_record';
-import Product from './pages/product';
-import WareHouse from './pages/warehouse';
-import Head from './common/head'
+// import Nav from './common/nav';
+// import Head from './common/head';
+import loadable from './common/loadable';
+
+const Customer=loadable(()=>import("./pages/customer"));
+ const Nav=loadable(()=>import("./common/nav"));
+const User=loadable(()=>import("./pages/user"));
+const In_Out_Record=loadable(()=>import("./pages/in_out_record"));
+const Product_Out_Record=loadable(()=>import("./pages/product_out_record"));
+const Product_In_Record=loadable(()=>import("./pages/product_in_record"));
+const WareHouse=loadable(()=>import("./pages/warehouse"));
+const Head=loadable(()=>import("./common/head"));
+const Product=loadable(()=>import("./pages/product"));
+
 
 function App() {
   return (

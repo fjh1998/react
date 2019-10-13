@@ -7,6 +7,7 @@ import {ProductReducer} from '../pages/product/store';
 import {In_Out_RecordReducer} from '../pages/in_out_record/store';
 import {CustomerReducer} from '../pages/customer/store';
 import {WareHouseReducer} from '../pages/warehouse/store';
+import {userReducer} from '../pages/user/store';
 
 
 const reducer=combineReducers({
@@ -17,6 +18,7 @@ const reducer=combineReducers({
     ProductReducer:ProductReducer,
     In_Out_RecordReducer:In_Out_RecordReducer,
     CustomerReducer:CustomerReducer,
-    WareHouseReducer:WareHouseReducer
+    WareHouseReducer:WareHouseReducer,
+    userReducer:userReducer
 });
 export default reducer;
