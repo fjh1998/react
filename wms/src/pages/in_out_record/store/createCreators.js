@@ -8,7 +8,7 @@ const navlist=(list)=>({
 export const chagenav=()=>({
     type:actinoTypes.CHANGE_NAV
 });
-export const getNavList=()=>{
+export const getIn_Out_RecordList=()=>{
     return (dispatch)=>{
         axios.get("/api/navList.json").then((res)=>{
             dispatch(navlist(res.data));

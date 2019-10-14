@@ -4,7 +4,8 @@ import {actinoTypes} from './index';
 const defaultState=fromJS({
     customer_list:[],
     column:[],
-    edit_customer:{}
+    edit_customer:{},
+    modal_visible:false
 });
 export default(state=defaultState,action)=>{
     switch (action.type) {
@@ -15,18 +16,21 @@ export default(state=defaultState,action)=>{
         case actinoTypes.SHOW_MODAL:
             return state.merge({
               "modal_visible":true,
-              "edit_user":fromJS(action.edit_user)
+              "edit_customer":fromJS(action.edit_customer)
             }) ;
         case actinoTypes.HIDDEN_MODAL:
             return state.merge({
               'modal_visible':false
-              ,edit_user:fromJS({})
+              ,edit_customer:fromJS({})
             });
         case actinoTypes.SET_NEW_EDIT_CUSTOMER:
-            return state.set('edit_user',action.edit_user
+            return state.set('edit_custome',action.edit_custome
             );
         case actinoTypes.GET_CUSTOMER_LIST:
-            return state.set('user_list',fromJS(action.userlist));
+            return state.merge({
+                "customer_list":fromJS(action.customerlist),
+                "column":fromJS(action.columnlist)
+            });
         default:
             return state;
     }

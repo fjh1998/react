@@ -1,0 +1,23 @@
+{
+    "success" : "true",
+    "data" : [
+        {
+            "id": "1",
+            "name": "warehouse1",
+            "address": "山西",
+            "description": "warehouse1"
+          },
+          {
+            "id": "2",
+            "name": "warehouse1",
+            "address": "宁夏",
+            "description": "warehouse1"
+          },
+          {
+            "id": "3",
+            "name": "warehouse1",
+            "address": "洱海",
+            "description": "warehouse1"
+          }
+    ]
+}

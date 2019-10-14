@@ -6,15 +6,34 @@ import { actinCreators } from './store';
 const { Content } = Layout;
 class Customer1 extends Component {
 
-    componentDidMount(){
-        this.props.getcoustomer_List();
+    componentDidMount() {
+        this.props.getCustomer_List();
     };
     render() {
-        const { customer_list,column, editcustomer, deletecustomer, modal_visible, showModal, handleCancel, edit_customer, setNewEditUser } = this.props;
+        const { customer_list, column, editcustomer, modalinit, deletecustomer, modal_visible, showModal, handleCancel, edit_customer, setNewEditCustomer } = this.props;
         const newlist = customer_list.toJS();
-        const newcolumn=column.toJS();
-        // let new_edit_customer = edit_customer.toJS();
+        const newcolumn = column.toJS();
         const { getFieldDecorator } = this.props.form;
+        const action={
+                title:"操作",
+                key:"action",
+                render: text => (
+                        <span>
+                            <a onClick={() => {
+                               showModal(text);
+                               this.props.form.setFieldsValue({
+                                        "name": text.name,
+                                        "address": text.address,
+                                        "contact": text.contact,
+                                        "phone": text.phone
+                                    });
+                            }}>编辑</a>
+                            <Divider type="vertical" />
+                            <a onClick={() => deletecustomer(text.id)}>删除</a>
+                        </span>
+                    )                       
+            };
+            newcolumn.push(action);
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Content
@@ -26,32 +45,10 @@ class Customer1 extends Component {
                     }}
                 >
 
-                    <Table dataSource={newlist} Column={newcolumn} Key='id'>
-                        <Column
-                            title="操作"
-                            key="action"
-                            render={(text, record) => (
-                                <span>
-                                    <a onClick={() => {
-                                        console.log(record);
-                                        console.log("text:");
-                                        console.log(text);
-                                        showModal(text);
-                                        this.props.form.setFieldsValue({
-                                            "customername": text.customername,
-                                            "ture_name":text.ture_name,
-                                            "phone":text.phone,
-                                            "email":text.email
-                                        });
-                                    }}>编辑</a>
-                                    <Divider type="vertical" />
-                                    <a onClick={() => deletecustomer(text.id)}>删除</a>
-                                </span>
-                            )}
-                        />
+                    <Table dataSource={newlist} columns={newcolumn} rowKey='id'>
                     </Table>
                     <Modal
-                        title="Basic Modal"
+                        title="供应商信息修改"
                         visible={modal_visible}
                         onOk={() => {
                             const new_edit_customer = this.props.form.getFieldsValue();
@@ -59,43 +56,58 @@ class Customer1 extends Component {
                             return editcustomer(new_edit_customer);
                         }}
                         onCancel={handleCancel}
+                        centered={true}
+
                     >
                         <Form>
-                            <Form.Item key={edit_customer.get("customername")}>
+                            <Form.Item key={edit_customer.get("name")}>
                                 {
-                                    getFieldDecorator('customername', {
+                                    getFieldDecorator('name', {
                                         //initialValue: edit_customer.get("customername"),
                                         rules: [{
                                             required: true,
-                                            message: '用户名不能为空'
+                                            message: '名称不能为空'
                                         }, {
-                                            pattern: new RegExp('^\\w+$', 'g'),
-                                            message: 'customername必须为字母或者数字'
-                                        }, {
-                                            min: 3,
-                                            max: 12,
-                                            message: "长度不在范围"
+                                            pattern: new RegExp("^[a-zA-Z_\\u4e00-\\u9fa5]{2,15}$", "g"),
+                                            message: '名称必须为字母或者汉字且长度为2-15'
                                         }
                                         ]
 
                                     }
-                                    )(<Input addonBefore={"customername:"} />)}
+                                    )(<Input addonBefore={"名称:"} />)}
 
                             </Form.Item>
-                            <Form.Item key={edit_customer.get("ture_name")}>
+                            <Form.Item key={edit_customer.get("address")}>
                                 {
-                                    getFieldDecorator('ture_name', {
+                                    getFieldDecorator('address', {
                                         // initialValue: edit_customer.get("ture_name"),
                                         rules: [{
                                             required: true,
-                                            message: '真实姓名不能为空'
+                                            message: '地址不能为空'
                                         }, {
-                                            pattern: new RegExp("^[a-zA-Z_\\u4e00-\\u9fa5]{2,15}$", "g"),
-                                            message: "真实姓名必须为字母或汉字且长度为2-15"
+                                            pattern: new RegExp("^[0-9a-zA-Z_\\u4e00-\\u9fa5]{2,15}$", "g"),
+                                            message: "地址必须为字母、数字或汉字且长度为5-20"
                                         }
                                         ]
                                     }
-                                    )(<Input addonBefore={"ture_name:"} />)}
+                                    )(<Input addonBefore={"地址:"} />)}
+
+                            </Form.Item>
+                            <Form.Item key={edit_customer.get("contact")}>
+                                {
+                                    getFieldDecorator('contact', {
+                                        //initialValue: edit_customer.get("email"),
+                                        rules: [{
+                                            required: true,
+                                            message: '联系人不能为空'
+                                        }, {
+                                            pattern: new RegExp("^[a-zA-Z_\\u4e00-\\u9fa5]{2,10}$", "g"),
+                                            message: "联系人必须为字母或汉字且长度为2-10"
+                                        }
+                                        ]
+
+                                    }
+                                    )(<Input addonBefore={"联系人:"} />)}
 
                             </Form.Item>
                             <Form.Item key={edit_customer.get("phone")}>
@@ -114,26 +126,6 @@ class Customer1 extends Component {
                                     )(<Input addonBefore={"phone:"} />)}
 
                             </Form.Item>
-                            <Form.Item key={edit_customer.get("email")}>
-                                {
-                                    getFieldDecorator('email', {
-                                        //initialValue: edit_customer.get("email"),
-                                        rules: [{
-                                            required: true,
-                                            message: 'email不能为空'
-                                        }, {
-                                            pattern: new RegExp("^[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-])*@[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)+$", "g"),
-                                            message: "请输入正确的email"
-                                        }
-                                        ]
-
-                                    }
-                                    )(<Input addonBefore={"email:"} />)}
-
-                            </Form.Item>
-                            {/* <Input style={{ marginTop: '8px' }} addonBefore={"ture_name:"} value={edit_customer.get("ture_name")} allowClear={true} /> */}
-                            {/* <Input style={{ marginTop: '8px' }} addonBefore={"phone:"} value={edit_customer.get("phone")} allowClear={true} />
-                            <Input style={{ marginTop: '8px' }} addonBefore={"email:"} value={edit_customer.get("email")} allowClear={true} /> */}
                         </Form>
                     </Modal>
                 </Content>
@@ -146,11 +138,10 @@ const mapState = (state) => ({
     customer_list: state.getIn(['CustomerReducer', 'customer_list']),
     modal_visible: state.getIn(['CustomerReducer', 'modal_visible']),
     edit_customer: state.getIn(['CustomerReducer', 'edit_customer']),
-    column:state.getIn(['CustomerReducer', 'column']),
+    column: state.getIn(['CustomerReducer', 'column']),
 });
 const mapDispatcher = (dispatch) => ({
     editcustomer(new_edit_customer) {
-        console.log(new_edit_customer);
         dispatch(actinCreators.editcustomer(new_edit_customer));
     },
     deletecustomer(customerid) {
@@ -162,12 +153,15 @@ const mapDispatcher = (dispatch) => ({
     handleCancel() {
         dispatch(actinCreators.hidden_modal());
     },
-    setNewEditUser(new_edit_customer) {
-        dispatch(actinCreators.setNewEditUser(new_edit_customer));
+    setNewEditCustomer(new_edit_customer) {
+        dispatch(actinCreators.setNewEditCustomer(new_edit_customer));
     },
-    getUser_List(){
-        dispatch(actinCreators.getUserList());
-    }
+    getCustomer_List() {
+        dispatch(actinCreators.getCustomerList());
+    },
+    deletecustomer(customerid) {
+        dispatch(actinCreators.deletecustomer(customerid));
+    },
 });
 const Customer = Form.create()(Customer1);
 export default connect(mapState, mapDispatcher)(Customer);

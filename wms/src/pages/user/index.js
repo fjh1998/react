@@ -5,7 +5,7 @@ import { actinCreators } from './store';
 
 const { Content } = Layout;
 const { Column } = Table;
-class User1 extends Component<any> {
+class User1 extends Component {
 
     componentDidMount(){
         this.props.getUser_List();
@@ -38,9 +38,6 @@ class User1 extends Component<any> {
                             render={(text, record) => (
                                 <span>
                                     <a onClick={() => {
-                                        console.log(record);
-                                        console.log("text:");
-                                        console.log(text);
                                         showModal(text);
                                         this.props.form.setFieldsValue({
                                             "username": text.username,
