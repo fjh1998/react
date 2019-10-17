@@ -9,8 +9,8 @@ const getcustomerlist=(customerlist,columnlist)=>({
 });
 export const getCustomerList=()=>{
     return (dispatch)=>{
-        axios.get("/api/customerList.json").then((res)=>{
-            if(res.data.success){
+        axios.get("/customer/getAllcustomer").then((res)=>{
+            if(res.data.code===200){
                 const customerlist=res.data.data;
                 axios.get("/api/customer_column.json").then((res)=>{                 
                     const column=res.data.data;

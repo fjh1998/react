@@ -15,8 +15,9 @@ const modaldetail = (category_opstions, unit_options, standards_options, warehou
 });
 export const getProductList = () => {
     return (dispatch) => {
-        axios.get("/api/productList.json").then((res) => {
-            if (res.data.success) {
+        axios.get("/product/getAllProduct").then((res) => {
+            console.log(res);
+            if (res.data.code===200) {
                 const productlist = res.data.data;
                 axios.get("/api/product_column.json").then((res) => {
                     const column = res.data.data;
@@ -37,7 +38,7 @@ export const addproduct = (new_product) => {
     return (dispatch) => {
         axios.post("/product/delete", new_product).then((res) => {
             if (res.data.success) {
-                dispatch(getproductlist(res.data.data));
+                dispatch(getNewProductList(res.data.data));
             } else {
                 alert("商品信息添加失败,请刷新重试！");
             }
@@ -52,7 +53,7 @@ export const deleteproduct = (productid) => {
         let data = { "productid": productid };
         axios.post("/product/delete", data).then((res) => {
             if (res.data.success) {
-                dispatch(getproductlist(res.data.data));
+                dispatch(getNewProductList(res.data.data));
             } else {
                 alert("商品删除失败");
             }
@@ -79,8 +80,8 @@ export const showModal = () => {
 export const hidden_modal = () => ({
     type: actinoTypes.HIDDEN_MODAL
 });
-export const setNewEditProduct = (new_edit_product) => ({
-    type: actinoTypes.ADD_NEW_PRODUCT,
-    edit_product: new_edit_product
+export const getNewProductList = (new_productlist) => ({
+    type: actinoTypes.GET_NEW_PRODUCTLIST,
+    productlist: new_productlist
 });
 

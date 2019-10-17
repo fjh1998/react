@@ -8,9 +8,8 @@ const getuserlist=(userlist)=>({
 });
 export const getUserList=()=>{
     return (dispatch)=>{
-        axios.get("/api/userList.json").then((res)=>{
-            if(res.data.success){
-                console.log(res);
+        axios.get("/user/getAlluser").then((res)=>{
+            if( res.data.code===200){
                 dispatch(getuserlist(res.data.data));
             }else{
                 alert("用户列表加载失败");

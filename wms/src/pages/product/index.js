@@ -219,9 +219,6 @@ const mapDispatcher = (dispatch) => ({
     handleCancel() {
         dispatch(actinCreators.hidden_modal());
     },
-    AddNewProduct(new_product) {
-        dispatch(actinCreators.AddNewProduct(new_product));
-    },
     getProduct_List() {
         dispatch(actinCreators.getProductList());
     },

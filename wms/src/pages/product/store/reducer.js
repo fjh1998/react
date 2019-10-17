@@ -34,6 +34,10 @@ export default(state=defaultState,action)=>{
                 "product_list":fromJS(action.productlist),
                 "column":fromJS(action.columnlist)
             });
+        case actinoTypes.GET_NEW_PRODUCTLIST:
+            return state.merge({
+                "product_list":fromJS(action.productlist)
+            });
         default:
             return state;
     }
