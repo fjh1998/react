@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Layout, Menu, Icon } from 'antd';
 import { actinCreators } from './store';
@@ -46,8 +46,8 @@ class Nav extends PureComponent {
 		this.props.getNavList();
 	};
     render() {
-		const {collapsed,toggleCollapsed}=this.props;
-        return (
+		const {collapsed,toggleCollapsed,isLogin}=this.props;
+        return (isLogin?(
         <Sider collapsible collapsed={collapsed} onCollapse={toggleCollapsed}>
           <Link to="/">
 		  <div className="logo" />
@@ -74,7 +74,7 @@ class Nav extends PureComponent {
               <Menu.Item key="5">Alex</Menu.Item>
             </SubMenu>
           </Menu>
-        </Sider>
+        </Sider>):(<Fragment></Fragment>)
         );
     }
 };
@@ -82,6 +82,7 @@ class Nav extends PureComponent {
 const mapState = (state) => ({
 	collapsed: state.getIn(['navReducer', 'collapsed']),
 	navlist: state.getIn(['navReducer', 'navlist']),
+	isLogin: state.getIn(["loginReducer", "isLogin"])
 });
 const mapDispatcher = (dispatch) => ({
     toggleCollapsed() {

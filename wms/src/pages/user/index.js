@@ -11,10 +11,11 @@ class User1 extends Component {
         this.props.getUser_List();
     };
     render() {
-        const { user_list, edituser, deleteuser, modal_visible, showModal, handleCancel, edit_user, setNewEditUser } = this.props;
+        const { user_list, edituser, deleteuser, modal_visible, showModal, handleCancel, edit_user } = this.props;
         const newlist = user_list.toJS();
         // let new_edit_user = edit_user.toJS();
         const { getFieldDecorator } = this.props.form;
+   
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Content
@@ -29,7 +30,7 @@ class User1 extends Component {
                     <Table dataSource={newlist} rowKey='id'>
                         <Column title="ID" dataIndex="id" key="id" />
                         <Column title="用户名" dataIndex="username" key="username" />
-                        <Column title="真实姓名" dataIndex="ture_name" key="ture_name" />
+                        <Column title="真实姓名" dataIndex="trueName" key="trueName" />
                         <Column title="手机号" dataIndex="phone" key="phone" />
                         <Column title="邮箱" dataIndex="email" key="email" />
                         <Column
@@ -41,7 +42,7 @@ class User1 extends Component {
                                         showModal(text);
                                         this.props.form.setFieldsValue({
                                             "username": text.username,
-                                            "ture_name":text.ture_name,
+                                            "trueName":text.trueName,
                                             "phone":text.phone,
                                             "email":text.email
                                         });
@@ -84,10 +85,10 @@ class User1 extends Component {
                                     )(<Input addonBefore={"username:"} />)}
 
                             </Form.Item>
-                            <Form.Item key={edit_user.get("ture_name")}>
+                            <Form.Item key={edit_user.get("trueName")}>
                                 {
-                                    getFieldDecorator('ture_name', {
-                                        // initialValue: edit_user.get("ture_name"),
+                                    getFieldDecorator('trueName', {
+                                        // initialValue: edit_user.get("trueName"),
                                         rules: [{
                                             required: true,
                                             message: '真实姓名不能为空'
@@ -97,7 +98,7 @@ class User1 extends Component {
                                         }
                                         ]
                                     }
-                                    )(<Input addonBefore={"ture_name:"} />)}
+                                    )(<Input addonBefore={"trueName:"} />)}
 
                             </Form.Item>
                             <Form.Item key={edit_user.get("phone")}>
@@ -133,7 +134,7 @@ class User1 extends Component {
                                     )(<Input addonBefore={"email:"} />)}
 
                             </Form.Item>
-                            {/* <Input style={{ marginTop: '8px' }} addonBefore={"ture_name:"} value={edit_user.get("ture_name")} allowClear={true} /> */}
+                            {/* <Input style={{ marginTop: '8px' }} addonBefore={"trueName:"} value={edit_user.get("trueName")} allowClear={true} /> */}
                             {/* <Input style={{ marginTop: '8px' }} addonBefore={"phone:"} value={edit_user.get("phone")} allowClear={true} />
                             <Input style={{ marginTop: '8px' }} addonBefore={"email:"} value={edit_user.get("email")} allowClear={true} /> */}
                         </Form>
@@ -151,7 +152,6 @@ const mapState = (state) => ({
 });
 const mapDispatcher = (dispatch) => ({
     edituser(new_edit_user) {
-        console.log(new_edit_user);
         dispatch(actinCreators.edituser(new_edit_user));
     },
     deleteuser(userid) {
@@ -162,9 +162,6 @@ const mapDispatcher = (dispatch) => ({
     },
     handleCancel() {
         dispatch(actinCreators.hidden_modal());
-    },
-    setNewEditUser(new_edit_user) {
-        dispatch(actinCreators.setNewEditUser(new_edit_user));
     },
     getUser_List(){
         dispatch(actinCreators.getUserList());

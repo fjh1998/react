@@ -6,9 +6,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import {Globalstyle} from './styl';
 import 'antd/dist/antd.css';
 import {Layout} from 'antd';
-// import Nav from './common/nav';
-// import Head from './common/head';
 import loadable from './common/loadable';
+import PrivateRoute from './common/route/PrivateRoute';
 
 const Customer=loadable(()=>import("./pages/customer"));
  const Nav=loadable(()=>import("./common/nav"));
@@ -19,8 +18,22 @@ const Product_In_Record=loadable(()=>import("./pages/product_in_record"));
 const WareHouse=loadable(()=>import("./pages/warehouse"));
 const Head=loadable(()=>import("./common/head"));
 const Product=loadable(()=>import("./pages/product"));
+const Login=loadable(()=>import("./common/login"));
 
 
+const Head_Nav=(login)=>{
+  if(login){
+    return (
+      <Fragment>
+
+    <Nav></Nav>
+      <Head></Head>
+      </Fragment>
+      );
+  }else{
+    return;
+  }
+}
 function App() {
   return (
     <Fragment>
@@ -30,15 +43,17 @@ function App() {
       <Layout style={{ minHeight: '100vh' }}>
         <BrowserRouter>
           <Nav></Nav>
+          <Route path="/login" exact component={Login}></Route>
           <Layout>
+          {/* {Head_Nav(store.getIn(["LoginReducer","login"]))} */}
           <Head></Head>
-          <Route path="/customer" exact component={Customer}></Route>
-          <Route path="/user" exact component={User}></Route>
-          <Route path="/in_out_record" exact component={In_Out_Record}></Route>
-          <Route path="/product_in_record" exact component={Product_In_Record}></Route>
-          <Route path="/product_out_record" exact component={Product_Out_Record}></Route>
-          <Route path="/product" exact component={Product}></Route>
-          <Route path="/warehouse" exact component={WareHouse}></Route>
+          <PrivateRoute path="/customer" exact component={Customer}></PrivateRoute>
+          <PrivateRoute path="/user" exact component={User}></PrivateRoute>
+          <PrivateRoute path="/in_out_record" exact component={In_Out_Record}></PrivateRoute>
+          <PrivateRoute path="/product_in_record" exact component={Product_In_Record}></PrivateRoute>
+          <PrivateRoute path="/product_out_record" exact component={Product_Out_Record}></PrivateRoute>
+          <PrivateRoute path="/product" exact component={Product}></PrivateRoute>
+          <PrivateRoute path="/warehouse" exact component={WareHouse}></PrivateRoute>
           </Layout>
         </BrowserRouter>
         </Layout>

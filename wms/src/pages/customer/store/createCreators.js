@@ -29,7 +29,7 @@ export const getCustomerList=()=>{
 }
 export const editcustomer=(new_edit_customer)=>{
     return (dispatch)=>{
-        axios.post("/customer/delete",new_edit_customer).then((res)=>{
+        axios.post("/customer/Updateuser",new_edit_customer).then((res)=>{
             if(res.data.success){
                 dispatch(getcustomerlist(res.data.data));
             }else{
@@ -44,7 +44,7 @@ export const editcustomer=(new_edit_customer)=>{
 export const deletecustomer=(customerid)=>{
     return (dispatch)=>{
         let data={"customerid":customerid};
-        axios.post("/customer/delete",data).then((res)=>{
+        axios.post("/customer/Deleteuser",data).then((res)=>{
             if(res.data.success){
                 dispatch(getcustomerlist(res.data.data));
             }else{

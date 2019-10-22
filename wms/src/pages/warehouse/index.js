@@ -120,7 +120,6 @@ const mapState = (state) => ({
 });
 const mapDispatcher = (dispatch) => ({
     editwarehouse(new_edit_warehouse) {
-        console.log(new_edit_warehouse);
         dispatch(actinCreators.editwarehouse(new_edit_warehouse));
     },
     deletewarehouse(warehouseid) {

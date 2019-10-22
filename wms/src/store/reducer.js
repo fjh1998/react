@@ -8,6 +8,7 @@ import {In_Out_RecordReducer} from '../pages/in_out_record/store';
 import {CustomerReducer} from '../pages/customer/store';
 import {WareHouseReducer} from '../pages/warehouse/store';
 import {userReducer} from '../pages/user/store';
+import {loginReducer} from '../common/login/store';
 
 
 const reducer=combineReducers({
@@ -19,6 +20,7 @@ const reducer=combineReducers({
     In_Out_RecordReducer:In_Out_RecordReducer,
     CustomerReducer:CustomerReducer,
     WareHouseReducer:WareHouseReducer,
-    userReducer:userReducer
+    userReducer:userReducer,
+    loginReducer:loginReducer
 });
 export default reducer;

@@ -14,19 +14,19 @@ export default(state=defaultState,action)=>{
             return state.set('navlist',action.list);
         case actinoTypes.SHOW_MODAL:
             return state.merge({
-              "modal_visible":true,
-              "edit_user":fromJS(action.edit_user)
+              modal_visible:true,
+              edit_user:fromJS(action.edit_user)
             }) ;
         case actinoTypes.HIDDEN_MODAL:
             return state.merge({
-              'modal_visible':false
-              ,edit_user:fromJS({})
+              modal_visible:false,
+              edit_user:fromJS({})
             });
-        case actinoTypes.SET_NEW_EDIT_USER:
-            return state.set('edit_user',action.edit_user
-            );
         case actinoTypes.GET_USER_LIST:
-            return state.set('user_list',fromJS(action.userlist));
+            return state.merge({
+                user_list:fromJS(action.userlist),
+                modal_visible:false
+            });
         default:
             return state;
     }

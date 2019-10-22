@@ -22,11 +22,13 @@ export const getUserList=()=>{
 }
 export const edituser=(new_edit_user)=>{
     return (dispatch)=>{
-        axios.post("/user/delete",new_edit_user).then((res)=>{
-            if(res.data.success){
+        axios.post("/user/Updateuser",new_edit_user
+        ).then((res)=>{
+            if(res.data.code==200){
                 dispatch(getuserlist(res.data.data));
+                alert("用户信息修改成功");
             }else{
-                alert("用户信息修改失败");
+                alert(res.message);
             }
         }).catch((error)=>{
             console.log(error);
@@ -36,10 +38,12 @@ export const edituser=(new_edit_user)=>{
 };
 export const deleteuser=(userid)=>{
     return (dispatch)=>{
-        let data={"userid":userid};
-        axios.post("/user/delete",data).then((res)=>{
-            if(res.data.success){
+        let data={"id":userid};
+        console.log(JSON.stringify(data));
+        axios.get("/user/Deleteuser?userid="+userid).then((res)=>{
+            if(res.data.code===200){
                 dispatch(getuserlist(res.data.data));
+                alert("用户删除成功");
             }else{
                 alert("用户删除失败");
             }
@@ -55,8 +59,4 @@ export const showModal=(text)=>({
 });
 export const hidden_modal=()=>({
     type:actinoTypes.HIDDEN_MODAL
-});
-export const setNewEditUser=(new_edit_user)=>({
-    type:actinoTypes.SET_NEW_EDIT_USER,
-    edit_user:new_edit_user
 });
